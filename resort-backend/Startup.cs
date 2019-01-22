@@ -30,12 +30,19 @@ namespace resort_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<TodoContext>(opt =>
+            //services.AddDbContext<AccommodationContext>(opt =>
             //    opt.UseInMemoryDatabase("TodoList"));
 
             // Add framework services.
+            //services.AddDbContext<AccommodationContext>(options =>
+            //options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<AccommodationContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("Accommodation")));
+
             services.AddDbContext<TodoContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -45,19 +52,19 @@ namespace resort_backend
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "ToDo API",
-                    Description = "A simple example ASP.NET Core Web API",
+                    Title = "Resort-site backend API",
+                    Description = "A resort site ASP.NET Core Web API",
                     TermsOfService = "None",
                     Contact = new Contact
                     {
-                        Name = "Shayne Boyer",
+                        Name = "Samrach",
                         Email = string.Empty,
-                        Url = "https://twitter.com/spboyer"
+                        Url = "https://www.facebook.com/soem0202samrach"
                     },
                     License = new License
                     {
-                        Name = "Use under LICX",
-                        Url = "https://example.com/license"
+                        Name = "ZEAL VC",
+                        Url = "https://www.facebook.com/soem0202samrach"
                     }
                 });
 
@@ -78,7 +85,7 @@ namespace resort_backend
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Resort API V1");
                 //c.RoutePrefix = string.Empty;
             });
 
@@ -99,3 +106,5 @@ namespace resort_backend
         }
     }
 }
+//dotnet run --urls http://0.0.0.0:5001
+//netsh advfirewall firewall add rule name = "Http Port 5000" dir=in action=allow protocol = TCP localport=5000
